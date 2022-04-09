@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="counter-title">Spiele <span class="counter">({{games?.length}} / {{all?.length}})</span></ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="filterGames($event)">
+                <ion-icon slot="icon-only" name="settings" [color]="all?.length === games?.length ? 'medium' : 'warning'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">-->
+<!--        <ion-refresher-content-->
+<!--                pullingIcon="arrow-dropdown"-->
+<!--                pullingText="Ziehen zum neuladen"-->
+<!--                refreshingSpinner="circles"-->
+<!--                refreshingText="Lade...">-->
+<!--        </ion-refresher-content>-->
+<!--    </ion-refresher>-->
+    <app-game-list [games]="games" [all]="all"></app-game-list>
+</ion-content>

@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="onCancelClicked()">
+                <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Spiel bearbeiten
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="game">
+    <ion-item>
+        <ion-label position="stacked">Bezeichnung</ion-label>
+        <ion-input [(ngModel)]="game.name" clearInput="true" (ngModelChange)="saveGame()"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Spielart</ion-label>
+        <ion-select name="game-type" [(ngModel)]="game.type" (ngModelChange)="saveGame()">
+            <ion-select-option *ngFor="let gameType of gameTypes" [value]="gameType.id" [selected]="gameType.id === game.type">
+                {{gameType.name}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-button expand="full" fill="outline" color="secondary" (click)="onAddPlayerClicked()" [disabled]="game.ended">
+        <ion-icon slot="start" name="create"></ion-icon>
+        <ion-label slot="start">Spielerliste bearbeiten</ion-label>
+    </ion-button>
+    <div class="player-list-container">
+        <ion-list-header>
+            Spieler
+        </ion-list-header>
+        <ion-reorder-group (ionItemReorder)="doReorder($event)" disabled="false">
+            <ion-item *ngFor="let player of players; let idx = index">
+                <ion-icon slot="start" color="medium" name="person"></ion-icon>
+                <ion-label>{{idx + 1}}. {{player.name}}</ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+            </ion-item>
+        </ion-reorder-group>
+    </div>
+    <ion-button expand="full" fill="outline" color="secondary" (click)="onPlayClicked()" [disabled]="game.players.length <= 0">
+        <ion-icon slot="start" name="play"></ion-icon>
+        <ion-label slot="start">Zum Spiel</ion-label>
+    </ion-button>
+
+</ion-content>

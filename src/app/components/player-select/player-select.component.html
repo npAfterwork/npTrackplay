@@ -1,0 +1,21 @@
+<ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-button (click)="onCancelClicked()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+        <ion-button (click)="onAcceptClicked()">
+            <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+
+    <ion-title>Spielerauswahl</ion-title>
+</ion-toolbar>
+
+<ion-list lines="full">
+    <ion-item *ngFor="let player of players">
+        <ion-checkbox slot="start" [(ngModel)]="selected[player.id]"></ion-checkbox>
+        <ion-label>{{player.name}}</ion-label>
+    </ion-item>
+</ion-list>

@@ -1,6 +1,8 @@
 npTrackplay
 =====
 
+Beware Angular 8 / Ionic 4 Application (a bit outdated)
+
 Small ionic app that keeps track of players and scores for games.
 
 Demo: https://npafterwork.github.io/npTrackplay/

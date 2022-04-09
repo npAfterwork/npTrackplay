@@ -1,0 +1,33 @@
+<ion-button expand="full" fill="outline" color="secondary" class="ion-text-left" (click)="onAddGameType()">
+    <ion-icon slot="start" name="add"></ion-icon>
+    <ion-label slot="start">Neue Spielart anlegen</ion-label>
+</ion-button>
+<ion-list lines="full" #itemList>
+    <ion-item-divider *ngIf="header">
+        <ion-label>{{header}}</ion-label>
+        <ion-button fill="none" slot="end" (click)="onAddGameType()">
+          <ion-icon slot="icon-only" name="add"></ion-icon>
+        </ion-button>
+    </ion-item-divider>
+    <ion-item-sliding *ngFor="let gametype of types" (ionDrag)="deleteOnDrag($event, gametype)">
+        <ion-item-options side="start" *ngIf="gametype.id !== 'default'">
+            <ion-item-option color="danger" expandable (click)="deleteGameType(gametype)">
+                <ion-icon slot="icon-only" name="trash"></ion-icon>
+                Löschen
+            </ion-item-option>
+        </ion-item-options>
+        <ion-item>
+            <ion-icon slot="start" color="medium" name="magnet"></ion-icon>
+            <ion-label>{{gametype.name}}        </ion-label>
+            <ion-label class="label-info ion-text-wrap">
+                <p>{{gametype.winHigh ? 'Höchste Punktzahl gewinnt' : 'Niedrigste Punktzahl gewinnt'}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item-options side="end">
+            <ion-item-option expandable (click)="onEditGameTypeClicked(gametype)">
+                <ion-icon slot="icon-only" name="create"></ion-icon>
+                Bearbeiten
+            </ion-item-option>
+        </ion-item-options>
+    </ion-item-sliding>
+</ion-list>

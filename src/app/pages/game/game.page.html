@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-button slot="start" fill="none" (click)="goBack();">
+            <ion-icon slot="icon-only" name="arrow-round-back"></ion-icon>
+        </ion-button>
+        <ion-title>{{game?.name}}</ion-title>
+        <ion-buttons slot="end" *ngIf="game">
+            {{game.ended ? 'Weiter' : 'Beenden'}}
+            <ion-button (click)="endGame()">
+                <ion-icon slot="icon-only" [name]="game.ended ? 'play': 'square'" color="warning"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <div *ngIf="game && !game.ended" class="table-wrapper">
+        <div class="table-row table-row-header scroll-client-wrapper" #header (scroll)="onScroll($event)">
+            <div class="table-cell table-cell-header table-cell-round">#</div>
+            <div class="table-cell table-cell-header" *ngFor="let player of players">{{player.name}}</div>
+        </div>
+        <div class="table-data scroll-master-wrapper" #data (scroll)="onScroll($event)">
+            <div *ngFor="let round of rounds" class="table-row table-row-data">
+                <div class="table-cell table-cell-data table-cell-round">{{round.idx}}</div>
+                <div class="table-cell table-cell-data table-cell-edit" *ngFor="let player of players">
+                    <ion-input type="number" [value]="getValue(round, player)" (ionBlur)="onValueChanged($event, round, player)" (keyup)="onKeyPressed($event)"></ion-input>
+                </div>
+            </div>
+        </div>
+        <div class="table-row table-row-footer scroll-client-wrapper" #footer (scroll)="onScroll($event)">
+            <div class="table-cell table-cell-footer table-cell-round">&sum;</div>
+            <div class="table-cell table-cell-footer" *ngFor="let player of players">{{scores[player.id] | score}}</div>
+        </div>
+    </div>
+    <div *ngIf="game && game.ended">
+        <p>Das Spiel ist beendet.</p>
+        <p class="result-row" *ngIf="getWinner(); let winner">
+            <span><strong class="title">{{winner.name}}</strong> hat gewonnen</span><span class="score">{{scores[winner.id] | score}} Punkte</span>
+        </p>
+        <div flex-row flex-center-center style="min-height: 238px;">
+            <img src="/assets/winner.gif" alt="winner gify"/>
+        </div>
+        <p *ngFor="let player of getResult(); let idx=index;" class="result-row">
+            <ng-container *ngIf="idx !== 0">
+                <span>{{idx + 1}}. {{player.name}}</span><span class="score">{{scores[player.id] | score }} Punkte</span>
+            </ng-container>
+        </p>
+    </div>
+</ion-content>

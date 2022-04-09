@@ -1,0 +1,14 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="counter-title">Spieler <span class="counter">({{players?.length}} / {{all?.length}})</span></ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="filterGames($event)">
+                <ion-icon slot="icon-only" name="settings" [color]="all?.length === players?.length ? 'medium' : 'warning'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <app-player-list [players]="players"></app-player-list>
+</ion-content>

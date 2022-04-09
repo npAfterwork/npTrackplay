@@ -1,0 +1,153 @@
+$header-height: 64px;
+$font-size-header: 1.2rem;
+$font-weight-header: bold;
+$row-height: 64px;
+$font-size-row: 1.2rem;
+$footer-height: 64px;
+
+$background-color-round: #f2f2f2;
+$table-cell-min-width: 100px;
+
+//$table-row-header-bg: #515355; #5d5d5d
+$table-row-header-bg: #515355;
+$table-row-footer-bg: $table-row-header-bg;
+$table-row-data-even: #2b2b2b;
+$table-row-data-odd: #3c3f41;
+$table-border: 1px solid #2b2b2b;
+
+:host {
+  .scroll-master-wrapper, .scroll-client-wrapper {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .scroll-master-wrapper {
+    overflow: auto;
+    flex-direction: column;
+  }
+
+  .scroll-client-wrapper {
+    overflow-x: auto;
+  }
+
+  .table-wrapper {
+    height: 100%;
+
+    .table-data {
+      max-height: calc(100% - #{$header-height} - #{$footer-height});
+    }
+
+    .table-row {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      flex: 0 0 auto;
+
+      height: $row-height;
+      line-height: $row-height;
+      font-size: $font-size-row;
+
+      &.table-row-header {
+        height: $header-height;
+        line-height: $header-height;
+        font-size: $font-size-header;
+        font-weight: $font-weight-header;
+        background-color: $table-row-header-bg;
+      }
+
+      &.table-row-footer {
+        height: $footer-height;
+        line-height: $footer-height;
+        font-size: $font-size-header;
+        font-weight: $font-weight-header;
+        background-color: $table-row-footer-bg;
+      }
+
+      &.table-row-data {
+        //line-height: 2;
+
+        &:nth-child(2n) {
+          background-color: $table-row-data-even;
+        }
+
+        &:nth-child(2n -1) {
+          background-color: $table-row-data-odd;
+        }
+      }
+
+      border-bottom: $table-border;
+
+      .table-cell {
+        background-color: inherit;
+        line-height: inherit;
+        border-top: $table-border;
+        border-left: $table-border;
+        border-right: none;
+        border-bottom: none;
+
+        &:last-child {
+          border-right: $table-border;
+        }
+
+        text-align: center;
+        white-space: nowrap;
+
+        text-overflow: ellipsis;
+        flex: 1 0 $table-cell-min-width;
+
+        ion-input {
+          --padding-top: 0;
+          --padding-end: 0;
+          --padding-bottom: 0;
+          --padding-start: 0;
+        }
+
+        &.table-cell-edit {
+        }
+
+        &.table-cell-header {
+          height: $header-height;
+        }
+
+        &.table-cell-footer {
+        }
+
+        &.table-cell-round {
+          flex: 0 0 2rem;
+        }
+
+      }
+    }
+
+  }
+
+  .result-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .title {
+      font-size: 1.2rem;
+      line-height: 1.2rem;
+      display: block;
+    }
+
+    span {
+      flex: 0 0 50%;
+
+      &.score {
+        text-align: right;
+      }
+    }
+  }
+
+}
+

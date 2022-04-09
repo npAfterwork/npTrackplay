@@ -1,0 +1,82 @@
+<ion-content>
+    <ng-container>
+        <ion-item>
+            <ion-label>Filter Einstellungen</ion-label>
+            <ion-button slot="end" fill="none" (click)="closePopover()"><ion-icon slot="icon-only" name="close"></ion-icon></ion-button>
+        </ion-item>
+        <ng-container *ngIf="mode === 'players'">
+            <ion-item>
+                <ion-label position="stacked" [color]="(config.players.filter === '') ? '' : 'warning'">Suche</ion-label>
+                <ion-input [(ngModel)]="config.players.filter" (ionChange)="saveConfig()" clearInput="true" placeholder="Suchbegriff eingeben..."></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortierung</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.players.dir" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'asc'">Aufsteigend</ion-select-option>
+                    <ion-select-option [value]="'desc'">Absteigend</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortiere</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.players.sort" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'name'">nach Name</ion-select-option>
+                    <ion-select-option [value]="'date'">nach erstellt am</ion-select-option>
+                    <ion-select-option [value]="'last'">nach zuletzt gespielt</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ng-container>
+        <ng-container *ngIf="mode === 'games'">
+            <ion-item>
+                <ion-toggle slot="start" [(ngModel)]="config.games.showEndedGames" (ionChange)="saveConfig()"></ion-toggle>
+                <ion-label [color]="config.games.showEndedGames ? '' : 'warning'">Beendete Spiele anzeigen</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked" [color]="(config.games.typeId === '') ? '' : 'warning'">Spielart</ion-label>
+                <ion-select [(ngModel)]="config.games.typeId" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="''">Alle</ion-select-option>
+                    <ion-select-option *ngFor="let gametype of types" [value]="gametype.id">{{gametype.name}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked" [color]="(config.games.filter === '') ? '' : 'warning'">Suche</ion-label>
+                <ion-input [(ngModel)]="config.games.filter" (ionChange)="saveConfig()" clearInput="true" placeholder="Suchbegriff eingeben..."></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortierung</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.games.dir" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'asc'">Aufsteigend</ion-select-option>
+                    <ion-select-option [value]="'desc'">Absteigend</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortiere</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.games.sort" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'name'">nach Name</ion-select-option>
+                    <ion-select-option [value]="'date'">nach erstellt am</ion-select-option>
+                    <ion-select-option [value]="'updated'">nach zuletzt gespielt</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ng-container>
+        <ng-container *ngIf="mode === 'gamesForPlayer'">
+            <ion-item>
+                <ion-toggle slot="start" [(ngModel)]="config.gamesForPlayer.showEndedGames" (ionChange)="saveConfig()"></ion-toggle>
+                <ion-label [color]="config.gamesForPlayer.showEndedGames ? '' : 'warning'">Beendete Spiele anzeigen</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortierung</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.gamesForPlayer.dir" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'asc'">Aufsteigend</ion-select-option>
+                    <ion-select-option [value]="'desc'">Absteigend</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Sortiere</ion-label>
+                <ion-select slot="end" [(ngModel)]="config.gamesForPlayer.sort" (ionChange)="saveConfig()">
+                    <ion-select-option [value]="'name'">nach Name</ion-select-option>
+                    <ion-select-option [value]="'date'">nach erstellt am</ion-select-option>
+                    <ion-select-option [value]="'updated'">nach zuletzt gespielt</ion-select-option>
+                </ion-select>
+            </ion-item>
+        </ng-container>
+    </ng-container>
+</ion-content>

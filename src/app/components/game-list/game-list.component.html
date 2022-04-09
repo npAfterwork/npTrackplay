@@ -1,0 +1,42 @@
+<ion-button *ngIf="hasAddButton" expand="full" fill="outline" color="secondary" class="ion-text-left" (click)="onAddGame()">
+    <ion-icon slot="start" name="add"></ion-icon>
+    <ion-label slot="start">Neues Spiel anlegen</ion-label>
+</ion-button>
+<ion-list lines="full" #itemList>
+    <ion-item-divider *ngIf="games?.length">
+        <ion-label class="">Laufende Spiele <span class="counter" *ngIf="all">({{stats.openFiltered}} / {{stats.openAll}})</span></ion-label>
+    </ion-item-divider>
+    <ng-container *ngFor="let game of games">
+        <ion-item-divider *ngIf="addHeader(game)">
+            <ion-label class="">Beendete Spiele <span class="counter" *ngIf="all">({{stats.endedFiltered}} / {{stats.endedAll}})</span></ion-label>
+        </ion-item-divider>
+        <ion-item-sliding (ionDrag)="deleteOnDrag($event, game)">
+            <ion-item-options side="start">
+                <ion-item-option color="danger" expandable (click)="deleteGame(game)">
+                    <ion-icon slot="icon-only" name="trash"></ion-icon> Löschen
+                </ion-item-option>
+            </ion-item-options>
+            <ion-item (click)="onGoToGameClicked(game)" [disabled]="game.players.length <= 0">
+                <ion-icon slot="start" color="medium" name="play-circle"></ion-icon>
+                <ion-label>
+                    <h2>{{game.name || 'Unbekannt'}}</h2>
+                    <p class="second-line">
+                        <ion-text color="medium">{{getTypeName(game.type)}}</ion-text>
+                        <span>{{game.created | date:'d.MMM.yyyy HH:mm'}}</span>
+                    </p>
+                    <p class="second-line">
+                        <ion-text color="medium">Zuletzt gespielt am:</ion-text>
+                        <span>{{game.updated | date:'d.MMM.yyyy HH:mm'}}</span>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item-options side="end">
+                <ion-item-option expandable (click)="onEditGameClicked(game)">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                    Bearbeiten
+                </ion-item-option>
+            </ion-item-options>
+
+        </ion-item-sliding>
+    </ng-container>
+</ion-list>

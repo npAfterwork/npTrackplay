@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-button slot="start" (click)="goBackToPlayersPage()" fill="none"><ion-icon slot="icon-only" name="arrow-round-back"></ion-icon></ion-button>
+        <ion-title>Spieler {{player.name}}</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="filterGames($event)">
+                <ion-icon slot="icon-only" name="settings" [color]="all.length === games.length ? 'medium' : 'warning'"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-button expand="full" fill="outline" color="secondary" class="ion-text-left" (click)="onAddGameClicked()">
+        <ion-icon slot="start" name="add"></ion-icon>
+        <ion-label slot="start">Neues Spiel anlegen</ion-label>
+    </ion-button>
+    <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [(ngModel)]="player.name" (ionBlur)="savePlayer();"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label class="label-info">
+            <p class="second-line">
+                <ion-text color="medium">Erstellt am: </ion-text>
+                <span>{{player.created | date:'d.MMM.yyyy HH:mm'}}</span>
+            </p>
+            <p class="second-line">
+                <ion-text color="medium">Zuletzt gespielt am:</ion-text>
+                <span>{{player.lastPlayed | date:'d.MMM.yyyy HH:mm'}}</span>
+            </p>
+            <p class="second-line">
+                <ion-text color="medium">Gewonnen/Verloren/Offen</ion-text>
+                <span>{{player.winCount}}/{{player.looseCount}}/{{player.openCount}}</span>
+            </p>
+            <p class="second-line">
+                <ion-text color="medium">Alle Spiele</ion-text>
+                <span>{{player.playCount}}</span>
+            </p>
+        </ion-label>
+    </ion-item>
+    <app-game-list [games]="games" [all]="all" [hasAddButton]="false"></app-game-list>
+</ion-content>

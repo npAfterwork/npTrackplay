@@ -1,0 +1,17 @@
+<ion-content class="ion-padding" *ngIf="gameType">
+    <ion-list>
+        <ion-item>
+            <ion-label position="stacked">Name</ion-label>
+            <ion-input [(ngModel)]="gameType.name" (ngModelChange)="saveType()" [autofocus]="true" [clearInput]="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <ion-text>Höchste Punktzahl gewinnt</ion-text>
+                <p class="ion-text-wrap">ansonsten gewinnt die niedrigste Punktzahl</p>
+            </ion-label>
+
+            <ion-toggle [(ngModel)]="gameType.winHigh" (ngModelChange)="saveType()"></ion-toggle>
+        </ion-item>
+    </ion-list>
+  <ion-toolbar><ion-button slot="end" fill="none" (click)="closePopover()">OK</ion-button></ion-toolbar>
+</ion-content>

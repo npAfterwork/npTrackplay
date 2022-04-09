@@ -1,0 +1,48 @@
+<ion-button expand="full" fill="outline" color="secondary" class="ion-text-left" (click)="onAddPlayer()">
+  <ion-icon slot="start" name="add"></ion-icon>
+  <ion-label slot="start">Neuen Spieler anlegen</ion-label>
+</ion-button>
+<ion-list lines="full" #itemList>
+  <ion-item-divider *ngIf="header" >
+    <ion-label color="light">{{header}}</ion-label>
+    <ion-button fill="clear" slot="end" size="default" (click)="onAddPlayer()">
+      <ion-icon slot="icon-only" name="person-add"></ion-icon>
+    </ion-button>
+  </ion-item-divider>
+  <ion-item-sliding *ngFor="let player of players" (ionDrag)="deleteOnDrag($event, player)">
+    <ion-item-options side="start">
+      <ion-item-option color="danger" expandable (click)="deletePlayer(player)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+        Löschen
+      </ion-item-option>
+    </ion-item-options>
+    <ion-item (click)="onGoToPlayerClicked(player)">
+      <ion-icon slot="start" color="medium" name="person"></ion-icon>
+      <ion-label class="label-info">
+          <h2>{{player.name || 'Unbekannt'}}</h2>
+          <p class="second-line">
+            <ion-text color="medium">Erstellt am: </ion-text>
+            <span>{{player.created | date:'d.MMM.yyyy HH:mm'}}</span>
+          </p>
+          <p class="second-line">
+            <ion-text color="medium">Zuletzt gespielt am:</ion-text>
+            <span>{{player.lastPlayed | date:'d.MMM.yyyy HH:mm'}}</span>
+          </p>
+          <p class="second-line">
+            <ion-text color="medium">Gewonnen/Verloren/Offen</ion-text>
+            <span>{{player.winCount}}/{{player.looseCount}}/{{player.openCount}}</span>
+          </p>
+          <p class="second-line">
+            <ion-text color="medium">Alle Spiele</ion-text>
+            <span>{{player.playCount}}</span>
+          </p>
+        </ion-label>
+    </ion-item>
+    <ion-item-options side="end">
+      <ion-item-option expandable (click)="onEditPlayerClicked(player)">
+        <ion-icon slot="icon-only" name="create"></ion-icon>
+        Bearbeiten
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
