@@ -1,0 +1,7 @@
+{
+  "name": "np-Trackplay",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
